@@ -1,15 +1,16 @@
-// Version v0.2.0
+// Version v0.2.1
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include <string.h>
+#include <stdlib.h>
 
-int currentHealth;
+int currentHealth = 100;
 
-void new()
+void initial()
 {
-    int damage, weapon, life = 100;
+    int damage, weapon;
+    srand(time(NULL));
+    printf("\n______________________________________________\n\n");
     printf("\nOpponents life : %d", currentHealth);
     printf("\n\nChoose your weapon:\n(1) Sword, 30-40 damage\n(2) Knife, 10-20 damage\nINPUT HERE: ");
     scanf("%d", &weapon);
@@ -17,51 +18,22 @@ void new()
     switch (weapon)
     {
     case 1:
+        printf("\n______________________________________________\n\n");
         printf("\nYou chose the sword");
-        srand(time(NULL));
         damage = rand() % 11 + 30;
         printf("\nYou inflicted %d damage to your oppenent", damage);
-        currentHealth = currentHealth - damage;
+        currentHealth -= damage;
         printf("\nCurrent opponent life is %d", currentHealth);
+        printf("\n\n______________________________________________");
         break;
     case 2:
+        printf("\n______________________________________________\n\n");
         printf("\n\nYou chose the knife");
-        srand(time(NULL));
         damage = rand() % 11 + 10;
         printf("\nYou inflicted %d damage to your opponent", damage);
-        currentHealth = currentHealth - damage;
+        currentHealth -= damage;
         printf("\nCurrent opponent life is %d", currentHealth);
-        break;
-    default:
-        printf("Invalid input");
-        break;
-    }
-}
-
-void initial()
-{
-    int life = 100, damage, weapon;
-    printf("\nOpponents life : %d", life);
-    printf("\n\nChoose your weapon:\n(1) Sword, 30-40 damage\n(2) Knife, 10-20 damage\nINPUT HERE: ");
-    scanf("%d", &weapon);
-
-    switch (weapon)
-    {
-    case 1:
-        printf("\nYou chose the sword");
-        srand(time(NULL));
-        damage = rand() % 11 + 30;
-        printf("\nYou inflicted %d damage to your oppenent", damage);
-        currentHealth = life - damage;
-        printf("\nCurrent opponent life is %d", currentHealth);
-        break;
-    case 2:
-        printf("\n\nYou chose the knife");
-        srand(time(NULL));
-        damage = rand() % 11 + 10;
-        printf("\nYou inflicted %d damage to your opponent", damage);
-        currentHealth = life - damage;
-        printf("\nCurrent opponent life is %d", currentHealth);
+        printf("\n\n______________________________________________");
         break;
     default:
         printf("Invalid input");
@@ -77,6 +49,7 @@ int main()
     {
     case 0:
         printf("End");
+        return 0;
         break;
     case 1:
         initial();
@@ -84,7 +57,7 @@ int main()
     default:
         printf("Invalid input");
     }
-    while (currentHealth != 0)
+    while (currentHealth > 0)
     {
         int contGame;
         printf("\n\nDo you still want to continue? (1/0): ");
@@ -96,8 +69,11 @@ int main()
             return 0;
             break;
         case 1:
-            new ();
+            initial();
             break;
+        default:
+            printf("Invalid input");
         }
     }
+    printf("\nEnd");
 }
